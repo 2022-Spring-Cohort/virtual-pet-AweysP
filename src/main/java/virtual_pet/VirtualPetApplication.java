@@ -48,16 +48,57 @@ public class VirtualPetApplication {
         }
 
         VirtualPet userPet = new VirtualPet(name, age, color, hunger, stamina, cleanliness, sleeping);
+        System.out.println("*****************************************************************");
+        System.out.println("Now that you have created your pet lets go over the instructions");
+        System.out.println("*****************************************************************");
 
-        System.out.println("Now that you have created your pet lets go over the instructions \nPress 1 to play with " + userPet.getName() + "\nPress 2 to feed " + userPet.getName() +
-                "\nPress 3 to clean " + userPet.getName() + "\nPress 0 to quit the interactions");
-        int input = userInput.nextInt();
-        String userChoice = userInput.nextLine();
 
         while (playGame) {
-            if (input > 3 || input < 0) {
+            System.out.println(userPet.getName() + "'s hunger is now " + userPet.getHunger());
+            System.out.println(userPet.getName() + "'s stamina is now " + userPet.getStamina());
+            System.out.println(userPet.getName() + "'s cleanliness is now " + userPet.getCleanliness());
+            System.out.println("********************************************");
+            System.out.println("Press 1 to play with " + userPet.getName() + "\nPress 2 to feed " + userPet.getName() +
+                    "\nPress 3 to clean " + userPet.getName() + "\nPress 4 to let " + userPet.getName() + " rest\nPress 0 to quit the interactions");
+            if (userPet.getCleanliness()>1 && userPet.getCleanliness() <= 2) {
+                System.out.println("*****************************************************");
+                System.out.println(userPet.getName() + " is starting to smell bad, give " + userPet.getName() + " a bath ");
+                System.out.println("*****************************************************");
+            }
+            if (userPet.getHunger()>1 && userPet.getHunger() <= 3) {
+                System.out.println("*****************************************************");
+                System.out.println(userPet.getName() + " is starting to get hungry, please feed ");
+                System.out.println("*****************************************************");
+            }
+
+            if (userPet.getHunger() == 0) {
+                System.out.println(userPet.getName() + " died of starvation\nGame has ended");
+                playGame = false;
+            }
+
+            if (userPet.getCleanliness() == 0) {
+                System.out.println(userPet.getName() + " died from it's own stench");
+                System.out.println("Game has ended");
+                playGame = false;
+            }
+            if(userPet.getStamina()>1 && userPet.getStamina() <= 3 ){
+                System.out.println("*******************************************");
+                System.out.println(userPet.getName()+" is getting tired");
+                System.out.println("*******************************************");
+            }
+            if(userPet.getStamina() == 0 ){
+                System.out.println(userPet.getName()+ " has fallen asleep\nGame has ended");
+                playGame=false;
+            }
+            int input = userInput.nextInt();
+            String userChoice = userInput.nextLine();
+
+
+            if (input > 4 || input < 0) {
                 System.out.println("Please enter a valid number between 0 and 3");
             }
+
+
             if (input == 0) {
                 System.out.println("Game has ended");
                 playGame = false;
@@ -67,36 +108,27 @@ public class VirtualPetApplication {
                 userPet.decreasingStamina();
                 userPet.decreasingHunger();
                 userPet.decreasingCleanliness();
-                System.out.println("Pet's stamina is now " + userPet.getStamina());
-                System.out.println("Pet's hunger is now " + userPet.getHunger());
-                System.out.println("Pet's cleanliness is now " + userPet.getCleanliness());
+
+
             } else if (input == 2) {
                 System.out.println("You just fed " + userPet.getName());
                 userPet.increasingHunger();
-                userPet.increasingStamina();
-                System.out.println("Pet's stamina is now " + userPet.getStamina());
-                System.out.println("Pet's hunger is now " + userPet.getHunger());
-                System.out.println("Pet's cleanliness is now " + userPet.getCleanliness());
+//                System.out.println(userPet.getName()+"'s stamina is now " + userPet.getStamina());
+//                System.out.println(userPet.getName()+"'s hunger is now " + userPet.getHunger());
+//                System.out.println(userPet.getName()+ "'s cleanliness is now " + userPet.getCleanliness());
 
             } else if (input == 3) {
                 System.out.println("You just gave " + userPet.getName() + " a bath");
                 userPet.increasingCleanliness();
-                System.out.println("Pet's stamina is now " + userPet.getStamina());
-                System.out.println("Pet's hunger is now " + userPet.getHunger());
-                System.out.println("Pet's cleanliness is now " + userPet.getCleanliness());
-            }
-            System.out.println("Do you want to continue with " + userPet.getName());
-            System.out.println(" Yes or no ?");
-            userInput.nextLine();
-            if (userChoice.equalsIgnoreCase("yes")) {
-                stamina = userInput.nextInt();
-                hunger = userInput.nextInt();
-                cleanliness = userInput.nextInt();
-            }
+//                System.out.println(userPet.getName()+"'s stamina is now " + userPet.getStamina());
+//                System.out.println(userPet.getName()+"'s hunger is now " + userPet.getHunger());
+//                System.out.println(userPet.getName()+ "'s cleanliness is now " + userPet.getCleanliness());
 
-
+            } else if(input == 4){
+                System.out.println("You just let "+userPet.getName()+ " rest on your lap");
+                userPet.increasingStamina();
+            }
         }
-
 
     }
 

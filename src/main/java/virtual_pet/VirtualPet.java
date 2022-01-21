@@ -55,7 +55,7 @@ public class VirtualPet {
     }
 
     public void decreasingHunger() {
-        hunger -= 2;
+        hunger -= 1;
         if (hunger < 0) {
             hunger = 0;
         }
@@ -83,7 +83,7 @@ public class VirtualPet {
     }
 
     public void decreasingCleanliness() {
-        cleanliness -= 2;
+        cleanliness -= 1;
         if (cleanliness < 0) {
             cleanliness = 0;
         }
