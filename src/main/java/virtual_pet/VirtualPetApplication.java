@@ -48,7 +48,6 @@ public class VirtualPetApplication {
         }
 
         VirtualPet userPet = new VirtualPet(name, age, color, hunger, stamina, cleanliness, sleeping);
-        System.out.println("*****************************************************************");
         System.out.println("Now that you have created your pet lets go over the instructions");
         System.out.println("*****************************************************************");
 
@@ -57,16 +56,14 @@ public class VirtualPetApplication {
             System.out.println(userPet.getName() + "'s hunger is now " + userPet.getHunger());
             System.out.println(userPet.getName() + "'s stamina is now " + userPet.getStamina());
             System.out.println(userPet.getName() + "'s cleanliness is now " + userPet.getCleanliness());
-            System.out.println("********************************************");
+            System.out.println("*******************************************");
             System.out.println("Press 1 to play with " + userPet.getName() + "\nPress 2 to feed " + userPet.getName() +
                     "\nPress 3 to clean " + userPet.getName() + "\nPress 4 to let " + userPet.getName() + " rest\nPress 0 to quit the interactions");
             if (userPet.getCleanliness()>1 && userPet.getCleanliness() <= 2) {
-                System.out.println("*****************************************************");
                 System.out.println(userPet.getName() + " is starting to smell bad, give " + userPet.getName() + " a bath ");
                 System.out.println("*****************************************************");
             }
             if (userPet.getHunger()>1 && userPet.getHunger() <= 3) {
-                System.out.println("*****************************************************");
                 System.out.println(userPet.getName() + " is starting to get hungry, please feed ");
                 System.out.println("*****************************************************");
             }
@@ -82,7 +79,6 @@ public class VirtualPetApplication {
                 playGame = false;
             }
             if(userPet.getStamina()>1 && userPet.getStamina() <= 3 ){
-                System.out.println("*******************************************");
                 System.out.println(userPet.getName()+" is getting tired");
                 System.out.println("*******************************************");
             }
