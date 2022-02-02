@@ -21,6 +21,18 @@ public class VirtualPet {
 
     }
 
+    public VirtualPet(String name) {
+       this.name = name;
+    }
+
+//    public VirtualPet () {
+//        this.name = "Simba";
+//    }
+
+
+
+
+
     public String getName() {
         return name;
     }
@@ -99,4 +111,19 @@ public class VirtualPet {
         decreasingCleanliness();
     }
 
+    public void play(){
+        decreasingHunger();
+        decreasingStamina();
+        decreasingCleanliness();
+    }
+    public void stats(){
+        System.out.println(getName() + "'s hunger is " + getHunger());
+        System.out.println(getName() + "'s stamina is " + getStamina());
+        System.out.println(getName() + "'s cleanliness is " +getCleanliness());
+    }
+
+    @Override
+    public String toString() {
+        return "name " +name +"  : age " + age;
+    }
 }

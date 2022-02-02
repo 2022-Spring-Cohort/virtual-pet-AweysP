@@ -1,21 +1,149 @@
 package virtual_pet;
 
-import java.util.Scanner;
+import java.util.*;
 
 public class VirtualPetApplication {
-    //private VirtualPet simbaPet = new VirtualPet("Simba",2,"black",10,10,0,true);
+
+    public VirtualPetApplication() {
+    }
 
     public static void main(String[] args) {
         //Interact with a VirtualPet object in this method
         VirtualPetApplication myGame = new VirtualPetApplication();
         myGame.virtualPetGame();
+
+
     }
 
     private void virtualPetGame() {
+        VirtualPetShelter shelter = new VirtualPetShelter();
+        Scanner scanner = new Scanner(System.in);
+        shelter.createPet(scanner);
+        while (true) {
+            System.out.println("Here are the commands for you to use:quit, add, feed, wash,play,or list ");
+            System.out.println("What would you like to do");
+            String userInput = scanner.nextLine();
+
+            System.out.println(userInput);
+            switch (userInput.strip().toLowerCase()) {
+                case "quit":
+                    System.exit(0);
+                    break;
+
+                case "all stats":
+                    System.out.println("Here are all the stats of the pets");
+                    shelter.allStats();
+
+                    break;
+
+                case "stats":
+                    System.out.println("Which pets stats would you like to look at?");
+                    userInput = scanner.nextLine();
+                    VirtualPet statsOfPet = shelter.getPets().get(userInput);
+
+                    if (statsOfPet == null) {
+                        System.out.println("There is no pet named " + userInput);
+
+                        continue;
+                    }
+                    System.out.println("Here are the stats for " + userInput);
+                    statsOfPet.stats();
+
+
+                case "add":
+                    this.createPet(scanner, shelter);
+                    break;
+                case "feed":
+                    System.out.println("Which pet would you like to feed ?");
+                    userInput = scanner.nextLine();
+                    VirtualPet fedPet = shelter.getPets().get(userInput);
+
+                    if (fedPet == null) {
+                        System.out.println("There is no pet named " + userInput);
+
+                        continue;
+                    }
+                    fedPet.increasingHunger();
+                    System.out.println("You have just fed " + fedPet.getName());
+
+                    break;
+
+                case "feed all pets":
+                    shelter.feedAllPets();
+                    System.out.println("You have fed all the pets in the shelter");
+                    break;
+
+
+                case "wash":
+                    for (VirtualPet pet : shelter.getPets().values()) {
+                        System.out.println(pet);
+                    }
+
+                    System.out.println("Which pet would you like to clean ?");
+                    userInput = scanner.nextLine();
+                    VirtualPet cleanedPet = shelter.getPets().get(userInput);
+
+                    if (cleanedPet == null) {
+                        System.out.println("There is no pet named " + userInput);
+
+                        continue;
+
+                    }
+                    cleanedPet.increasingCleanliness();
+                    System.out.println("You have just washed " + cleanedPet.getName());
+
+                    break;
+
+                case "play":
+                    if (shelter.getPets().size() == 1) {
+                        VirtualPet currentPet = shelter.getPets().get(shelter.getPets().keySet().toArray()[0].toString());
+                        currentPet.play();
+                        System.out.println("You just played with " + currentPet + "!");
+                    }
+                    for (VirtualPet pet : shelter.getPets().values()) {
+                        System.out.println(pet);
+                    }
+                    System.out.println("Which pet would you like to play with?");
+                    userInput = scanner.nextLine();
+                    VirtualPet currentPet = shelter.getPets().get(userInput);
+
+                    if (currentPet == null) {
+                        System.out.println("We seem to not have that pet in this shelter");
+
+                        continue;
+                    }
+                    currentPet.play();
+                    System.out.println("You just played with " + currentPet.getName() + "!");
+                    break;
+
+
+                case "help ":
+                    System.out.println("Here are the commands for you to use:quit, adopt, feed, wash,play,or list ");
+                    break;
+
+                case "list":
+                    System.out.println("Here is a list of all the pets we currently have ");
+                    for (VirtualPet pet : shelter.getPets().values()) {
+                        System.out.println(pet);
+                    }
+                    continue;
+
+                default:
+                    System.out.println("We don't know that command, please try again");
+            }
+            shelter.tickPets();
+        }
+
+
+    }
+
+
+    public void createPet(Scanner scanner, VirtualPetShelter shelter) {
+
 
         Scanner userInput = new Scanner(System.in);
         System.out.println("lets create your pet for you first");
-        boolean playGame = true;
+
         System.out.println("Enter Pet name");
         String name = userInput.nextLine();
         System.out.println("Enter Pet age");
@@ -46,86 +174,19 @@ public class VirtualPetApplication {
         if (sleeping) {
             stamina = 0;
         }
-
         VirtualPet userPet = new VirtualPet(name, age, color, hunger, stamina, cleanliness, sleeping);
-        System.out.println("Now that you have created your pet lets go over the instructions");
-        System.out.println("*****************************************************************");
-
-
-        while (playGame) {
-            System.out.println(userPet.getName() + "'s hunger is now " + userPet.getHunger());
-            System.out.println(userPet.getName() + "'s stamina is now " + userPet.getStamina());
-            System.out.println(userPet.getName() + "'s cleanliness is now " + userPet.getCleanliness());
-            System.out.println("*******************************************");
-            System.out.println("Press 1 to play with " + userPet.getName() + "\nPress 2 to feed " + userPet.getName() +
-                    "\nPress 3 to clean " + userPet.getName() + "\nPress 4 to let " + userPet.getName() + " rest\nPress 0 to quit the interactions");
-            if (userPet.getCleanliness()>1 && userPet.getCleanliness() <= 2) {
-                System.out.println(userPet.getName() + " is starting to smell bad, give " + userPet.getName() + " a bath ");
-                System.out.println("*****************************************************");
-            }
-            if (userPet.getHunger()>1 && userPet.getHunger() <= 3) {
-                System.out.println(userPet.getName() + " is starting to get hungry, please feed ");
-                System.out.println("*****************************************************");
-            }
-
-            if (userPet.getHunger() == 0) {
-                System.out.println(userPet.getName() + " died of starvation\nGame has ended");
-                playGame = false;
-            }
-
-            if (userPet.getCleanliness() == 0) {
-                System.out.println(userPet.getName() + " died from it's own stench");
-                System.out.println("Game has ended");
-                playGame = false;
-            }
-            if(userPet.getStamina()>1 && userPet.getStamina() <= 3 ){
-                System.out.println(userPet.getName()+" is getting tired");
-                System.out.println("*******************************************");
-            }
-            if(userPet.getStamina() == 0 ){
-                System.out.println(userPet.getName()+ " has fallen asleep\nGame has ended");
-                playGame=false;
-            }
-            int input = userInput.nextInt();
-            String userChoice = userInput.nextLine();
-
-
-            if (input > 4 || input < 0) {
-                System.out.println("Please enter a valid number between 0 and 3");
-            }
-
-
-            if (input == 0) {
-                System.out.println("Game has ended");
-                playGame = false;
-            }
-            if (input == 1) {
-                System.out.println("You just played with " + name);
-                userPet.decreasingStamina();
-                userPet.decreasingHunger();
-                userPet.decreasingCleanliness();
-
-
-            } else if (input == 2) {
-                System.out.println("You just fed " + userPet.getName());
-                userPet.increasingHunger();
-//                System.out.println(userPet.getName()+"'s stamina is now " + userPet.getStamina());
-//                System.out.println(userPet.getName()+"'s hunger is now " + userPet.getHunger());
-//                System.out.println(userPet.getName()+ "'s cleanliness is now " + userPet.getCleanliness());
-
-            } else if (input == 3) {
-                System.out.println("You just gave " + userPet.getName() + " a bath");
-                userPet.increasingCleanliness();
-//                System.out.println(userPet.getName()+"'s stamina is now " + userPet.getStamina());
-//                System.out.println(userPet.getName()+"'s hunger is now " + userPet.getHunger());
-//                System.out.println(userPet.getName()+ "'s cleanliness is now " + userPet.getCleanliness());
-
-            } else if(input == 4){
-                System.out.println("You just let "+userPet.getName()+ " rest on your lap");
-                userPet.increasingStamina();
-            }
-        }
+        System.out.println(name + " was added to the shelter");
+        shelter.addPetToShelter(userPet);
 
     }
 
+
 }
+
+
+
+
+
+
+
+
