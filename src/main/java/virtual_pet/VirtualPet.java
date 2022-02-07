@@ -22,15 +22,18 @@ public class VirtualPet {
     }
 
     public VirtualPet(String name) {
-       this.name = name;
+        this.name = name;
+    }
+
+    public VirtualPet(String name, int age, int cleanliness) {
+        this.name = name;
+        this.age = age;
+        this.cleanliness = cleanliness;
     }
 
 //    public VirtualPet () {
 //        this.name = "Simba";
 //    }
-
-
-
 
 
     public String getName() {
@@ -61,9 +64,9 @@ public class VirtualPet {
         return sleeping;
     }
 
-    public void  increasingHunger() {
-         hunger += 2;
-         hunger = Math.min(10,hunger);
+    public void increasingHunger() {
+        hunger += 2;
+        hunger = Math.min(10, hunger);
     }
 
     public void decreasingHunger() {
@@ -74,8 +77,8 @@ public class VirtualPet {
     }
 
     public void increasingStamina() {
-         stamina += 2;
-         stamina = Math.min(10,stamina);
+        stamina += 2;
+        stamina = Math.min(10, stamina);
 
     }
 
@@ -89,7 +92,7 @@ public class VirtualPet {
 
     public void increasingCleanliness() {
         cleanliness += 2;
-         cleanliness = Math.min(10,cleanliness);
+        cleanliness = Math.min(10, cleanliness);
 
 
     }
@@ -103,27 +106,54 @@ public class VirtualPet {
     }
 
     public void tick() {
-        increasingHunger();
         decreasingHunger();
-        increasingStamina();
         decreasingStamina();
-        increasingCleanliness();
         decreasingCleanliness();
     }
 
-    public void play(){
+    public void play() {
         decreasingHunger();
         decreasingStamina();
         decreasingCleanliness();
     }
-    public void stats(){
+
+    public void stats() {
         System.out.println(getName() + "'s hunger is " + getHunger());
         System.out.println(getName() + "'s stamina is " + getStamina());
-        System.out.println(getName() + "'s cleanliness is " +getCleanliness());
+        System.out.println(getName() + "'s cleanliness is " + getCleanliness());
+    }
+
+    public void walkingTheDog() {
+        decreasingCleanliness();
+        decreasingHunger();
+        decreasingStamina();
+    }
+
+    public void changingTheOil() {
+
     }
 
     @Override
     public String toString() {
-        return "name " +name +"  : age " + age;
+        return "name " + name + "  : age " + age;
     }
+
+    public String getType() {
+        if (this instanceof RoboticCat) {
+            return "Robotic Cat";
+        }
+        if (this instanceof RoboticDog) {
+            return "Robotic Dog";
+        }
+        if (this instanceof OrganicCat) {
+            return "Organic Cat";
+        }
+        if (this instanceof OrganicDog) {
+            return "Organic Dog";
+        }
+        return "Unknown type";
+    }
+
+
 }
+

@@ -1,13 +1,19 @@
 package virtual_pet;
 
-public class RealDog extends Organic {
+public class OrganicDog extends Organic {
 
 
     private int walkDog;
 
-    public RealDog(String name) {
-        super(name);
+    public OrganicDog(String name, int age, String color, int hunger, int stamina, int cleanliness, boolean sleeping, boolean needsToPoop) {
+        super(name, age, color, hunger, stamina, cleanliness, sleeping, needsToPoop);
         type = "Dog";
+
+
+    }
+
+    public void putInCage() {
+        this.needsToPoop = false;
     }
 
     public int getWalkDog() {
@@ -25,9 +31,6 @@ public class RealDog extends Organic {
 
     public void walkTheDog() {
 
-        walkDog += 4;
-
-        System.out.println("You walked " + getName());
 
     }
 

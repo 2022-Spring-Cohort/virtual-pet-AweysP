@@ -1,20 +1,25 @@
 package virtual_pet;
 
 public abstract class Robots extends VirtualPet {
-
+    private int age = 0;
     protected int oilLevel = 50;
-
     protected boolean needsOil = false;
-
     protected boolean poweredOn = true;
-
     protected int batteryLevel = 50;
+    //protected String type;
 
-    protected String type;
 
-    public String getType() {
-        return type;
+    public Robots(String name, int oilLevel, int age, boolean poweredOn, int cleanliness, int batteryLevel) {
+        super(name, age, cleanliness);
+        this.oilLevel = oilLevel;
+        this.poweredOn = poweredOn;
+        this.batteryLevel = batteryLevel;
+        //this.type = type;
     }
+
+//    public String getType() {
+//        return type;
+//    }
 
     public int getOilLevel() {
         return oilLevel;
@@ -32,10 +37,6 @@ public abstract class Robots extends VirtualPet {
         return batteryLevel;
     }
 
-    public Robots(String name) {
-        super(name);
-    }
-
     @Override
     public String toString() {
         return getName() + ": " +
@@ -48,6 +49,10 @@ public abstract class Robots extends VirtualPet {
     }
 
     public void changeBattery() {
+        batteryLevel = 50;
+    }
+
+    public void chargingTheBattery() {
         batteryLevel = 50;
     }
 
@@ -82,5 +87,6 @@ public abstract class Robots extends VirtualPet {
         batteryLevel -= 10;
     }
 
-    public abstract void changeOil();
+    public abstract void changingTheOil();
 }
+

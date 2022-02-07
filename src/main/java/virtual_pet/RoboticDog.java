@@ -1,20 +1,25 @@
 package virtual_pet;
 
-public class RoboDog extends Robots {
+public class RoboticDog extends Robots {
 
-    public RoboDog(String name) {
-        super(name);
-        type = "Robotic Dog";
+    public RoboticDog(String name, int age, int oilLevel, boolean poweredOn, int cleanliness, int batteryLevel) {
+        super(name, age, oilLevel, poweredOn, cleanliness, batteryLevel);
+        //type = "Robotic Dog";
+    }
+
+
+    public boolean isNeedsOil() {
+        return super.isNeedsOil();
     }
 
     public void walkTheDog() {
-        oilLevel -= 10;
+        oilLevel -= 5;
 
-        batteryLevel -= 10;
+        batteryLevel -= 5;
     }
 
     @Override
-    public void changeOil() {
-        oilLevel += 30;
+    public void changingTheOil() {
+        oilLevel += 10;
     }
 }

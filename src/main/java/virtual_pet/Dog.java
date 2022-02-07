@@ -1,2 +1,5 @@
-package virtual_pet;public interface Dog {
+package virtual_pet;
+
+interface Dog {
+    void walkTheDog();
 }

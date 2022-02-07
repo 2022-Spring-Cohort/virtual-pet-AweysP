@@ -1,6 +1,6 @@
 package virtual_pet;
 
-import java.util.*;
+import java.util.Scanner;
 
 public class VirtualPetApplication {
 
@@ -20,11 +20,10 @@ public class VirtualPetApplication {
         Scanner scanner = new Scanner(System.in);
         shelter.createPet(scanner);
         while (true) {
-            System.out.println("Here are the commands for you to use:quit, add, feed, wash,play,or list ");
+            System.out.println("Here are the commands for you to use:quit, add, feed, wash,play, walk , change oil, charge battery, stats or list ");
             System.out.println("What would you like to do");
             String userInput = scanner.nextLine();
 
-            System.out.println(userInput);
             switch (userInput.strip().toLowerCase()) {
                 case "quit":
                     System.exit(0);
@@ -91,8 +90,19 @@ public class VirtualPetApplication {
                     }
                     cleanedPet.increasingCleanliness();
                     System.out.println("You have just washed " + cleanedPet.getName());
+                    if (cleanedPet instanceof OrganicDog) {
+                        OrganicDog petToPutInCage = (OrganicDog) cleanedPet;
+                        petToPutInCage.putInCage();
+                        System.out.println(cleanedPet.getName() + " was put in the cage");
+                    } else if (cleanedPet instanceof OrganicCat) {
+                        OrganicCat petToUseLitterBox = (OrganicCat) cleanedPet;
+                        petToUseLitterBox.putInLitterBox();
+                        System.out.println(cleanedPet.getName() + " used the litter box");
+
+                    }
 
                     break;
+
 
                 case "play":
                     if (shelter.getPets().size() == 1) {
@@ -114,6 +124,59 @@ public class VirtualPetApplication {
                     }
                     currentPet.play();
                     System.out.println("You just played with " + currentPet.getName() + "!");
+                    break;
+                case "walk":
+                    for (VirtualPet pet : shelter.getPets().values()) {
+                        System.out.println(pet);
+                    }
+                    System.out.println("Which pet would you like to walk ?");
+                    userInput = scanner.nextLine();
+                    VirtualPet walkedPet = shelter.getPets().get(userInput);
+
+                    if (walkedPet == null) {
+                        System.out.println("There is no pet named " + userInput);
+
+                        continue;
+                    }
+                    walkedPet.walkingTheDog();
+                    System.out.println("You have just walked " + walkedPet.getName());
+
+                    break;
+
+                case "change oil":
+                    System.out.println("Which pet would you like to change the oil to ?");
+                    userInput = scanner.nextLine();
+                    VirtualPet oilChanged = shelter.getPets().get(userInput);
+
+                    if (oilChanged == null) {
+                        System.out.println("There is no pet named " + userInput);
+                        continue;
+                    }
+                    if (oilChanged instanceof Robots) {
+                        Robots petToOil = (Robots) oilChanged;
+                        petToOil.changingTheOil();
+                        System.out.println("You have just changed the oil of " + petToOil.getName());
+                    } else {
+                        System.out.println("You cannot change the oil of an organic pet!!!");
+                    }
+                    break;
+
+                case "charge battery":
+                    System.out.println("Which pet would you like to charge ?");
+                    userInput = scanner.nextLine();
+                    VirtualPet chargedPet = shelter.getPets().get(userInput);
+
+                    if (chargedPet == null) {
+                        System.out.println("There is no pet named " + userInput);
+                        continue;
+                    }
+                    if (chargedPet instanceof Robots) {
+                        Robots petToCharge = (Robots) chargedPet;
+                        petToCharge.chargingTheBattery();
+                        System.out.println("You have just charged the battery for  " + petToCharge.getName());
+                    } else {
+                        System.out.println("You cannot charge the batter of an organic pet!!");
+                    }
                     break;
 
 
@@ -142,44 +205,73 @@ public class VirtualPetApplication {
 
 
         Scanner userInput = new Scanner(System.in);
-        System.out.println("lets create your pet for you first");
+        System.out.println("lets create your pet !!");
 
-        System.out.println("Enter Pet name");
-        String name = userInput.nextLine();
-        System.out.println("Enter Pet age");
-        int age = userInput.nextInt();
-        userInput.nextLine();
-        System.out.println("Enter Pet color");
-        String color = userInput.nextLine();
-        System.out.println("Enter Pet's hunger level up to 10");
-        int hunger = userInput.nextInt();
-        if (hunger > 10) {
-            hunger = 10;
+        System.out.println("Would you like an organic pet or a robotic pet?");
+        String petType = userInput.nextLine();
+        VirtualPet userPet = null;
+        if (petType.equalsIgnoreCase("organic")) {
+            System.out.println("Enter organic pet's name");
+            String name = userInput.nextLine();
+            System.out.println("Enter organic pet's age");
+            int age = userInput.nextInt();
+            userInput.nextLine();
+            System.out.println("Enter organic pet's color");
+            String color = userInput.nextLine();
+            System.out.println("Enter organic pet's hunger level up to 10");
+            int hunger = userInput.nextInt();
+            if (hunger > 10) {
+                hunger = 10;
+            }
+            userInput.nextLine();
+            System.out.println("Enter organic pet's stamina level up to 10");
+            int stamina = userInput.nextInt();
+            if (stamina > 10) {
+                stamina = 10;
+            }
+            userInput.nextLine();
+            System.out.println("Enter organic pet's cleanliness level up to 10");
+            int cleanliness = userInput.nextInt();
+            if (cleanliness > 10) {
+                cleanliness = 10;
+            }
+            userInput.nextLine();
+            System.out.println("Is the organic pet asleep ( true or false )");
+            boolean sleeping = userInput.nextBoolean();
+            if (sleeping) {
+                stamina = 0;
+            }
+            System.out.println("Is " + name + " a cat or a dog?");
+            String organicPetType = "";
+            while (!organicPetType.equals("dog") && !organicPetType.equals("cat")) {
+                organicPetType = userInput.nextLine();
+                if (organicPetType.equalsIgnoreCase("dog")) {
+                    userPet = new OrganicDog(name, age, color, hunger, stamina, cleanliness, sleeping, false);
+                } else if (organicPetType.equalsIgnoreCase("cat")) {
+                    userPet = new OrganicCat(name, age, color, hunger, stamina, cleanliness, sleeping, false);
+                }
+            }
+            System.out.println(name + " was added to the shelter");
+            shelter.addPetToShelter(userPet);
+        } else if (petType.equalsIgnoreCase("robotic")) {
+            System.out.println("Enter robotic pet's name");
+            String name = userInput.nextLine();
+
+
+            System.out.println("Is this a dog or cat?");
+            String roboticPetType = userInput.nextLine();
+            if (roboticPetType.equalsIgnoreCase("dog")) {
+                userPet = new RoboticDog(name, 0, 50, true, 8, 50);
+            } else if (roboticPetType.equalsIgnoreCase("cat")) {
+                userPet = new RoboticCat(name, 50, 0, true, 9, 50);
+
+            }
+            System.out.println(name + " was added to the shelter");
+            shelter.addPetToShelter(userPet);
+
         }
-        userInput.nextLine();
-        System.out.println("Enter Pet's stamina level up to 10");
-        int stamina = userInput.nextInt();
-        if (stamina > 10) {
-            stamina = 10;
-        }
-        userInput.nextLine();
-        System.out.println("Enter Pet's cleanliness level up to 10");
-        int cleanliness = userInput.nextInt();
-        if (cleanliness > 10) {
-            cleanliness = 10;
-        }
-        userInput.nextLine();
-        System.out.println("Is the Pet asleep ( true or false )");
-        boolean sleeping = userInput.nextBoolean();
-        if (sleeping) {
-            stamina = 0;
-        }
-        VirtualPet userPet = new VirtualPet(name, age, color, hunger, stamina, cleanliness, sleeping);
-        System.out.println(name + " was added to the shelter");
-        shelter.addPetToShelter(userPet);
 
     }
-
 
 }
 
