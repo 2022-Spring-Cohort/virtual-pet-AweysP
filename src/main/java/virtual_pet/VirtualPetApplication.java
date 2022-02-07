@@ -248,6 +248,7 @@ public class VirtualPetApplication {
                 if (organicPetType.equalsIgnoreCase("dog")) {
                     userPet = new OrganicDog(name, age, color, hunger, stamina, cleanliness, sleeping, false);
                 } else if (organicPetType.equalsIgnoreCase("cat")) {
+
                     userPet = new OrganicCat(name, age, color, hunger, stamina, cleanliness, sleeping, false);
                 }
             }
