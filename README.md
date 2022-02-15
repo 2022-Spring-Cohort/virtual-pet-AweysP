@@ -1,21 +1,41 @@
-# Required Tasks
 ## VirtualPet class
-- [ ] You will need to create a VirtualPet class.
-- [ ] Create at least three instance variables (aka attributes aka properties aka fields).
-- [ ] Create at least three methods (messages you send to your pet).
-- [ ] Create a tick() method that represents the passage of time.
-## VirtualPetApp class
-- [ ] Create a main method.
-- [ ] implements a game loop.
-- [ ] asks for user input.
-- [ ] writes output to the console.
 
+## Instructions
 
-## Stretch Tasks
-- [ ] Give the pet the ability to take care of some of its own needs.
+- __help:__
+    - Shows a help menu for all the commands
 
-Pets are not robots - they usually have some sort of self-determination! When tick() is called, you might want to have your pet take a look at its needs and address one, prioritizing whichever need is highest. You could also make your pet uncooperative - when the user tries to feed the pet, for example, you might make the pet refuse to eat if it is bored. Remember how we created an instance of the Random class to create a random number generator? You might want to incorporate that.
+- __add:__
+    - Lets you add a pet to the shelter
 
-- [ ] Create a visual representation of your pet.
+- __play:__
+    - Lets you play with a pet in the shelter
 
-Rather than using numbers to convey your pet’s status, you could have some sort of visual representation of the pet. I.e., instead of printing hunger: 50, you could use smileys or ASCII art to show hunger when hunger >= 50.
+- __feed:__
+    - Lets you feed a pet in the shelter
+
+- __wash:__
+    - Lets you wash a pet in the shelter as well as changer their litter box and put them in the cage
+
+- __list:__
+    - Shows a list of the current pets in the shelter
+
+- __change oil:__
+    - Lets you change the oil of a robotic pet
+
+- __charge battery:__
+    - Lets you charge the battery of a robotic pet
+
+- __walk:__
+    - Lets you take a dog out for a walk
+
+## Some Mechanics
+
+- All organic pets will get more hungry
+    - this will lower every pet's hunger stat
+- All organic pets will become dirtier
+    - this will lower all organic pets cleanliness stat
+- All robotic pets will eventually need an oil change
+    - this will lower all robotic pet's oil level stat
+- All robotic pets will eventually need their batteries charged
+    - this will lower all robotic pets battery level stat
